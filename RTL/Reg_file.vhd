@@ -1,6 +1,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
+use STD.TEXTIO.ALL;
+use work.sp_pkg.all;
 
 entity Register_file is
 Port (
@@ -36,4 +38,27 @@ begin
     
     op1_o <= reg_file(to_integer(unsigned(rs1_addr_i)));
     op2_o <= reg_file(to_integer(unsigned(rs2_addr_i)));
+
+
+    
+    ------------------------------------------------------------------
+    -- Processo di dump del register file a fine simulazione
+    ------------------------------------------------------------------
+    dump_proc : process
+        file regfile_out : text open write_mode is "regfile_dump.txt";
+        variable L : line;
+    begin
+        wait for 1 ms; 
+
+        for i in 0 to 31 loop
+            write(L, string'("x"));
+            write(L, i, right, 2);
+            write(L, string'(" = 0x"));
+            write(L, to_hstring(reg_file(i)));
+            writeline(regfile_out, L);
+        end loop;
+
+        wait;
+    end process dump_proc;
+
 end RTL;

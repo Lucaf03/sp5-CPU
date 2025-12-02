@@ -1,0 +1,625 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11e vcom 2021.2_1 2021.05, May 15 2021
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/home/luca/sp5-CPU/sim/scripts
+T_opt
+!s110 1764590647
+Vh]iH@@4^>dbHD;zBd:IoQ2
+04 6 3 work tb_cpu sim 1
+=1-000ae431a4f1-692d8437-6b8a6-3724
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+tCvgOpt 0
+n@_opt
+OE;O;2021.2_1;73
+R1
+Ebranch_unit
+Z2 w1764590112
+Z3 DPx4 work 6 sp_pkg 0 22 N_MS?U2oX74b1VTS[PTR40
+Z4 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z6 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 1640
+Z7 d/home/luca/sp5-CPU/sim/build
+Z8 8/home/luca/sp5-CPU/RTL/Branch_Unit.vhd
+Z9 F/home/luca/sp5-CPU/RTL/Branch_Unit.vhd
+l0
+L7 1
+V4GZN]CP_ZPc1^?MY?VU>=1
+!s100 HbWU8G6<[e15VUiaVT<5g1
+Z10 OE;C;2021.2_1;73
+33
+Z11 !s110 1764590887
+!i10b 1
+Z12 !s108 1764590887.000000
+Z13 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Branch_Unit.vhd|
+Z14 !s107 /home/luca/sp5-CPU/RTL/Branch_Unit.vhd|
+!i113 0
+Z15 o-suppress 2583 -quiet -2008 -work work
+Z16 tExplicit 1 CvgOpt 0
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 11 branch_unit 0 22 4GZN]CP_ZPc1^?MY?VU>=1
+!i122 1640
+l31
+L22 68
+VVGz8`mTnGjS_HN?085<JA0
+!s100 nd<mkf?h`Jj6^:FPd<FoS2
+R10
+33
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 0
+R15
+R16
+Ecpu_top
+Z17 w1760268695
+R3
+R4
+R5
+R6
+!i122 1646
+R7
+Z18 8/home/luca/sp5-CPU/RTL/CPU_top.vhd
+Z19 F/home/luca/sp5-CPU/RTL/CPU_top.vhd
+l0
+L6 1
+Vzc^En4JWIGgKM875Nhf>b3
+!s100 EMe;>=iH<mkL0EOP1f@Ad2
+R10
+33
+R11
+!i10b 1
+R12
+Z20 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/CPU_top.vhd|
+Z21 !s107 /home/luca/sp5-CPU/RTL/CPU_top.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 7 cpu_top 0 22 zc^En4JWIGgKM875Nhf>b3
+!i122 1646
+l162
+L26 253
+V[OG_<l<KO:gJK=fzUABPX1
+!s100 jEfTVO`Mb;Jlm41N<3FQ:0
+R10
+33
+R11
+!i10b 1
+R12
+R20
+R21
+!i113 0
+R15
+R16
+Edata_ram
+Z22 w1759953966
+R4
+R5
+R6
+!i122 1637
+R7
+Z23 8/home/luca/sp5-CPU/RTL/Data_ram.vhd
+Z24 F/home/luca/sp5-CPU/RTL/Data_ram.vhd
+l0
+L6 1
+VJ066U:j@EcM_ZaCbh5>f;0
+!s100 @d3X2?N7YCT3=H;en7ZCo3
+R10
+33
+R11
+!i10b 1
+R12
+Z25 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Data_ram.vhd|
+Z26 !s107 /home/luca/sp5-CPU/RTL/Data_ram.vhd|
+!i113 0
+R15
+R16
+Artl
+R4
+R5
+R6
+DEx4 work 8 data_ram 0 22 J066U:j@EcM_ZaCbh5>f;0
+!i122 1637
+l24
+L21 46
+VE63jn6PbPe=m4>SVPVXE22
+!s100 9mz`4QcR2?70kIa1jWlhQ0
+R10
+33
+R11
+!i10b 1
+R12
+R25
+R26
+!i113 0
+R15
+R16
+Asim
+R4
+R5
+R6
+DEx4 work 8 data_ram 0 22 ;3=OlY]O0[PO0[A^9^3:_3
+!i122 928
+l49
+L22 147
+V^LZeg<g0jAe_4SY1TU6M80
+!s100 7=nE4CVB=N]h]i=J7JYkM2
+R10
+33
+!s110 1757949058
+!i10b 1
+!s108 1757949058.000000
+R25
+R26
+!i113 0
+R15
+R16
+w1757948962
+Edecode_unit
+Z27 w1764339144
+R3
+R4
+R5
+R6
+!i122 1641
+R7
+Z28 8/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
+Z29 F/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
+l0
+L7 1
+VC@eBYhlNAezWR>XiIn^kE0
+!s100 K6_>IL_a2za5InRY2I:;z2
+R10
+33
+R11
+!i10b 1
+R12
+Z30 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
+Z31 !s107 /home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 11 decode_unit 0 22 C@eBYhlNAezWR>XiIn^kE0
+!i122 1641
+l34
+L24 219
+VQmah?`]I@Dg:TO>d5]OaY1
+!s100 7QM=n[59oe[`h4IFo0`mL0
+R10
+33
+R11
+!i10b 1
+R12
+R30
+R31
+!i113 0
+R15
+R16
+Eexec_unit
+Z32 w1764590639
+R3
+R4
+R5
+R6
+!i122 1642
+R7
+Z33 8/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
+Z34 F/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
+l0
+L6 1
+VV?QWN2bg[4[<Ij7YbM7D11
+!s100 ACAHB?Li[mD[nn8o2[FeQ3
+R10
+33
+R11
+!i10b 1
+R12
+Z35 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
+Z36 !s107 /home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 9 exec_unit 0 22 V?QWN2bg[4[<Ij7YbM7D11
+!i122 1642
+l66
+L36 412
+VjSDUDC7<PRfz3eFJCl_0Y3
+!s100 OAF;>OhKnKgk_hcKSO8O32
+R10
+33
+R11
+!i10b 1
+R12
+R35
+R36
+!i113 0
+R15
+R16
+Efetch_unit
+Z37 w1759937250
+R3
+R4
+R5
+R6
+!i122 1639
+R7
+Z38 8/home/luca/sp5-CPU/RTL/Fetch_Unit.vhd
+Z39 F/home/luca/sp5-CPU/RTL/Fetch_Unit.vhd
+l0
+L7 1
+VHC`eJhPDT4NnTD]P]154A0
+!s100 1X7mVU5e`HI9MnP93^_e71
+R10
+33
+R11
+!i10b 1
+R12
+Z40 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Fetch_Unit.vhd|
+Z41 !s107 /home/luca/sp5-CPU/RTL/Fetch_Unit.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 10 fetch_unit 0 22 HC`eJhPDT4NnTD]P]154A0
+!i122 1639
+l29
+L23 52
+V]COlj38DAG61Ce5mCj?Eb1
+!s100 J]nKNT=5[D3kco==>J=oB3
+R10
+33
+R11
+!i10b 1
+R12
+R40
+R41
+!i113 0
+R15
+R16
+Einstr_mem
+Z42 w1757943631
+R4
+R5
+R6
+!i122 1638
+R7
+Z43 8/home/luca/sp5-CPU/RTL/Instr_mem.vhd
+Z44 F/home/luca/sp5-CPU/RTL/Instr_mem.vhd
+l0
+L6 1
+VAX_GN`TFHd0ATM31V3J8V3
+!s100 `ci]9HBfoD>`[;2BPFS<B1
+R10
+33
+R11
+!i10b 1
+R12
+Z45 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Instr_mem.vhd|
+Z46 !s107 /home/luca/sp5-CPU/RTL/Instr_mem.vhd|
+!i113 0
+R15
+R16
+Asim
+R4
+R5
+R6
+DEx4 work 9 instr_mem 0 22 AX_GN`TFHd0ATM31V3J8V3
+!i122 1638
+l46
+L19 110
+V^lHR;2Z[@@9RgOzN=VS`M0
+!s100 jcQbl^>KiBDEb17H4b1Vg2
+R10
+33
+R11
+!i10b 1
+R12
+R45
+R46
+!i113 0
+R15
+R16
+Epc_reg
+Z47 w1759937273
+R3
+R4
+R5
+R6
+!i122 1645
+R7
+Z48 8/home/luca/sp5-CPU/RTL/PC_reg.vhd
+Z49 F/home/luca/sp5-CPU/RTL/PC_reg.vhd
+l0
+L6 1
+VKD66lkP[CHH3>_`gjC@7h1
+!s100 gHZ_Q]KP:gj;hnS[hYGg?0
+R10
+33
+R11
+!i10b 1
+R12
+Z50 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/PC_reg.vhd|
+Z51 !s107 /home/luca/sp5-CPU/RTL/PC_reg.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 6 pc_reg 0 22 KD66lkP[CHH3>_`gjC@7h1
+!i122 1645
+l20
+L17 33
+VkQ:;jI^_^^TgXoC5i6oJD1
+!s100 2djPQ1U?YRF8b27TFdbcJ2
+R10
+33
+R11
+!i10b 1
+R12
+R50
+R51
+!i113 0
+R15
+R16
+Eregister_file
+Z52 w1760277479
+R3
+R4
+R5
+R6
+!i122 1644
+R7
+Z53 8/home/luca/sp5-CPU/RTL/Reg_file.vhd
+Z54 F/home/luca/sp5-CPU/RTL/Reg_file.vhd
+l0
+L7 1
+V=jTj^Hlk9OOV4KP?bY_S;2
+!s100 5HHin4fDdQXo83IGTma2<2
+R10
+33
+R11
+!i10b 1
+R12
+Z55 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Reg_file.vhd|
+Z56 !s107 /home/luca/sp5-CPU/RTL/Reg_file.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 13 register_file 0 22 =jTj^Hlk9OOV4KP?bY_S;2
+!i122 1644
+l21
+L18 47
+V4WeEV]lF]<QK`m9Q7Mh4;3
+!s100 UVekOYJKz0WHG_TbdBI822
+R10
+33
+R11
+!i10b 1
+R12
+R55
+R56
+!i113 0
+R15
+R16
+Psp_pkg
+R4
+R5
+R6
+!i122 1636
+w1764338661
+R7
+8/home/luca/sp5-CPU/RTL/sp-PKG.vhd
+F/home/luca/sp5-CPU/RTL/sp-PKG.vhd
+l0
+L5 1
+VN_MS?U2oX74b1VTS[PTR40
+!s100 I?YVX=;_4Akgo7hQmmYF11
+R10
+33
+R11
+!i10b 1
+R12
+!s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/sp-PKG.vhd|
+!s107 /home/luca/sp5-CPU/RTL/sp-PKG.vhd|
+!i113 0
+R15
+R16
+Etb_cpu
+Z57 w1757949695
+R4
+R5
+R6
+!i122 1647
+R7
+Z58 8/home/luca/sp5-CPU/RTL/tb_cpu.vhd
+Z59 F/home/luca/sp5-CPU/RTL/tb_cpu.vhd
+l0
+L6 1
+Vz5eD[lFmCoWoP46>bQ9@>0
+!s100 2VW9ZP?78Zg3[]];UoiIS0
+R10
+33
+R11
+!i10b 1
+R12
+Z60 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/tb_cpu.vhd|
+Z61 !s107 /home/luca/sp5-CPU/RTL/tb_cpu.vhd|
+!i113 0
+R15
+R16
+Asim
+R4
+R5
+R6
+Z62 DEx4 work 6 tb_cpu 0 22 z5eD[lFmCoWoP46>bQ9@>0
+!i122 1647
+l80
+Z63 L9 155
+Z64 VVahNA?IZFN2d:I=K>cn?Y2
+Z65 !s100 MmCN7TKcSSo;5YhOIZI290
+R10
+33
+R11
+!i10b 1
+R12
+R60
+R61
+!i113 0
+R15
+R16
+Ewriteback_unit
+Z66 w1760268672
+R3
+R4
+R5
+R6
+!i122 1643
+R7
+Z67 8/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
+Z68 F/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
+l0
+L7 1
+V:93g@3hV=B1LnlbJm4P@I0
+!s100 L9gYAQD:WhdI@:9U?O[KM3
+R10
+33
+R11
+!i10b 1
+R12
+Z69 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
+Z70 !s107 /home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
+!i113 0
+R15
+R16
+Artl
+R3
+R4
+R5
+R6
+DEx4 work 14 writeback_unit 0 22 :93g@3hV=B1LnlbJm4P@I0
+!i122 1643
+l19
+L18 16
+V6OYOWS]GfPEiRb7PMeRGC1
+!s100 Tk^U5L;CaTOa6N[oDe1842
+R10
+33
+R11
+!i10b 1
+R12
+R69
+R70
+!i113 0
+R15
+R16
