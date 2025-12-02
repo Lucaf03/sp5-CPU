@@ -13,7 +13,15 @@ package sp_pkg is
     LUI, AUIPC,
     JAL, JALR,
     NOP,
-    MUL, MULH, MULHSU, MULHU, DIV, DIVU, REMM, REMU
+    MUL, MULH, MULHSU, MULHU, DIV, DIVU, REMM, REMU,
+    CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI
   );
+
+  constant mvendoid_addr : std_logic_vector(11 downto 0)  := x"F11";
+  constant marchid_addr : std_logic_vector(11 downto 0)   := x"F12";
+  constant mimpid_addr : std_logic_vector(11 downto 0)    := x"F13";
+  constant mhartid_addr : std_logic_vector(11 downto 0)   := x"F14";
+  constant mstatus_addr : std_logic_vector(11 downto 0)   := x"300";
+  constant misa_addr : std_logic_vector(11 downto 0)      := x"301";
 
 end package sp_pkg;
