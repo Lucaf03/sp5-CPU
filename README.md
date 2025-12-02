@@ -1,6 +1,5 @@
 # sp5-CPU
 
-Simple RISC-V CPU
 This repository contains the design of a simple RISC-V CPU core, written in VHDL, implementing a subset of the RV32I instruction set architecture.
 
 The CPU supports most of the RV32I Base Integer Instruction Set, with the following exceptions:
