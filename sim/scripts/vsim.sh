@@ -22,6 +22,7 @@ vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/Fetch_Unit.vhd		||
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/Branch_Unit.vhd		|| exit 1
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/Decode_Unit.vhd		|| exit 1
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/Exec_Unit.vhd		|| exit 1
+vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/CSR_unit.vhd		|| exit 1
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/WriteBack_Unit.vhd	|| exit 1
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/Reg_file.vhd		|| exit 1
 vcom -2008 -quiet -suppress 2583 -work $LIB_NAME  ${RTL_PATH}/PC_reg.vhd			|| exit 1

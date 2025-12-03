@@ -8,6 +8,7 @@ add wave -group "FETCH" -radix hexadecimal sim:/tb_cpu/cpu_inst/FETCH_INST/*
 add wave -group "BRANCH" -radix hexadecimal sim:/tb_cpu/cpu_inst/BRANCH_INST/*
 add wave -group "DECODE" -radix unsigned sim:/tb_cpu/cpu_inst/DECODE_INST/*
 add wave -group "EXECUTE" -radix decimal sim:/tb_cpu/cpu_inst/EX_INST/*
+add wave -group "CSR" -radix decimal sim:/tb_cpu/cpu_inst/CSR_INST/*
 add wave -group "REGFILE" -radix decimal sim:/tb_cpu/cpu_inst/RF_INST/reg_file
 
 add wave -group "DATA_MEMORY" -radix decimal sim:/tb_cpu/cpu_inst/data_mem_addr_o

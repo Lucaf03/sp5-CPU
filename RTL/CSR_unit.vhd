@@ -7,18 +7,21 @@ use work.sp_pkg.all;
 entity CSR_unit is 
 Port(
 	clk_i, rst_i : in std_logic;
-	csr_instr_req : in std_logic;
+	CSR_start : in std_logic;
 	csr_addr_i : in std_logic_vector(11 downto 0);
 	csr_rd_i : in std_logic_vector(4 downto 0);
 	csr_rs1_i : in std_logic_vector(4 downto 0);
 	csr_imm_i : in std_logic_vector(4 downto 0);
 	instr_decoded_i : in INSTR_NAME;
-
+	csr_rd_o : out std_logic_vector(4 downto 0);
+	WB_start_o : out std_logic;
 	csr_read_o : out std_logic_vector(31 downto 0)
 );
 end entity;
 
 architecture RTL of CSR_unit is 
+
+
 	signal csr_misa_reg : std_logic_vector(31 downto 0); 
 	signal csr_mvendorid_reg : std_logic_vector(31 downto 0); 
 	signal csr_marchid_reg : std_logic_vector(31 downto 0); 
@@ -41,11 +44,16 @@ begin
 	begin
 		if rst_i = '1' then
 			csr_op_np <= '0';
+			csr_rd_o <= (others => '0');
+			csr_read <= (others => '0');
+			WB_start_o <= '0';
 		elsif rising_edge(clk_i) then
-			if csr_instr_req = '1' then
+			if CSR_start = '1' then
+				WB_start_o <= '1';
+				csr_rd_o <= csr_rd_i;
 				csr_op_np <= '0';
 				case csr_addr_i is 
-					when mvendorid_addr => 
+					when csr_mvendorid_addr => 
 						if instr_decoded_i = CSRRS or instr_decoded_i = CSRRC or 
 							instr_decoded_i = CSRRSI or instr_decoded_i = CSRRCI then
 							if csr_rs1_i = "00000" then 
@@ -56,7 +64,7 @@ begin
 						else 
 							csr_op_np <= '1';
 						end if;
-					when marchid_addr => 
+					when csr_marchid_addr => 
 						if instr_decoded_i = CSRRS or instr_decoded_i = CSRRC or 
 							instr_decoded_i = CSRRSI or instr_decoded_i = CSRRCI then
 							if csr_rs1_i = "00000" then 
@@ -104,6 +112,9 @@ begin
 						csr_op_np <= '1';
 						csr_read <= (others => '0');
 				end case;
+			else 
+				WB_start_o <= '0';
+				csr_rd_o <= (others => '0');
 			end if;
 		end if;
 	end process;

@@ -70,7 +70,9 @@ architecture RTL of CPU_top is
             instr_decoded_o : out INSTR_NAME;
             immediate_o : out std_logic_vector(31 downto 0);
             bypass1_o, bypass2_o : out std_logic;
-            rs1_addr_o, rs2_addr_o, rd_addr_o : out std_logic_vector(4 downto 0)
+            rs1_addr_o, rs2_addr_o, rd_addr_o : out std_logic_vector(4 downto 0);
+            CSR_start_o : out std_logic;
+            csr_addr_o : out std_logic_vector(11 downto 0)
         ); 
     end component;
     
@@ -134,6 +136,20 @@ architecture RTL of CPU_top is
          );
     end component;
 
+    component CSR_unit is 
+    Port(
+        clk_i, rst_i : in std_logic;
+        CSR_start : in std_logic;
+        csr_addr_i : in std_logic_vector(11 downto 0);
+        csr_rd_i : in std_logic_vector(4 downto 0);
+        csr_rs1_i : in std_logic_vector(4 downto 0);
+        csr_imm_i : in std_logic_vector(4 downto 0);
+        instr_decoded_i : in INSTR_NAME;
+        csr_rd_o : out std_logic_vector(4 downto 0);
+        WB_start_o : out std_logic;
+        csr_read_o : out std_logic_vector(31 downto 0)
+    );
+    end component;
     
 -- There are probably some signals not used
     signal br_addr,instr_addr: std_logic_vector(31 downto 0);
@@ -158,13 +174,27 @@ architecture RTL of CPU_top is
     signal instr_numb : INSTR_NAME;
 
     signal lsu_busy_wire, stall_wire1, stall_wire2, stall_or : std_logic;
-    
+
+    signal csr_start_wire : std_logic;
+    signal csr_addr_wire : std_logic_vector(11 downto 0);
+    signal csr_rd_wire : std_logic_vector(4 downto 0);
+    signal csr_rs1_wire : std_logic_vector(4 downto 0);
+    signal csr_imm_wire : std_logic_vector(4 downto 0);
+    signal csr_wr_wire : std_logic_vector(31 downto 0);
+    signal csr_wb_enb_wire : std_logic;
+
+    signal rd_mux : std_logic_vector(4 downto 0);
+    signal wr_mux : std_logic_vector(31 downto 0);
+    signal wb_enb_mux : std_logic;
 begin
 
 
     stall_or <= stall_wire1;
     instr_mem_addr_o <= instr_addr;
 
+    rd_mux <= rd_towb when exec_en = '1' else csr_rd_wire;
+    wr_mux <= result when exec_en = '1' else csr_wr_wire;
+    wb_enb_mux <= wb_en when exec_en = '1' else csr_wb_enb_wire;
     PC_INST : pc_reg port map(
         clk_i => clk_i,
         rst_i => rst_i,
@@ -220,7 +250,9 @@ begin
         immediate_o => imm,
         bypass1_o => bypass1,
         bypass2_o => bypass2,
-        instr_decoded_o => instr_numb
+        instr_decoded_o => instr_numb,
+        CSR_start_o => csr_start_wire,
+        csr_addr_o => csr_addr_wire
     );
     
     EX_INST : exec_unit port map(
@@ -255,7 +287,7 @@ begin
     WB_INST : writeback_unit port map(
         clk_i => clk_i,
         rst_i => rst_i,
-        data_i => result,
+        data_i => wr_mux,
         data_o => wr_data,
         PC_IE => pc_wire3,
         wr_rf_o => wr_en,
@@ -270,8 +302,22 @@ begin
         op1_o => op1,
         op2_o => op2,
         wr_data_i => wr_data,
-        rd_i => rd_towb,
+        rd_i => rd_mux,
         wr_enb => wr_en
+    );
+
+    CSR_INST : CSR_unit port map(
+        clk_i => clk_i, 
+        rst_i => rst_i,
+        CSR_start => csr_start_wire,
+        csr_addr_i => csr_addr_wire,
+        csr_rd_i => rd_addr,
+        csr_rs1_i => rs1_addr,
+        csr_imm_i => csr_imm_wire,
+        instr_decoded_i => instr_numb,
+        csr_read_o => csr_wr_wire,
+        WB_start_o => csr_wb_enb_wire,
+        csr_rd_o => csr_rd_wire
     );
     fetch_en <= global_en_i and if_start_br;
 

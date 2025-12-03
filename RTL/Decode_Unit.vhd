@@ -18,7 +18,7 @@ Port (
     lsu_busy : out std_logic;
     bypass1_o, bypass2_o : out std_logic;
     rs1_addr_o, rs2_addr_o, rd_addr_o : out std_logic_vector(4 downto 0);
-    csr_instr_req_o : out std_logic;
+    CSR_start_o : out std_logic;
     csr_addr_o : out std_logic_vector(11 downto 0)
 );
 end Decode_Unit;
@@ -34,7 +34,7 @@ architecture RTL of Decode_Unit is
     signal bypass1, bypass2 : std_logic;
     signal rd_prev : std_logic_vector(4 downto 0);
 
-    signal csr_instr_req : std_logic;
+    signal csr_start : std_logic;
     signal csr_addr : std_logic_vector(11 downto 0);
 begin
     opcode <= instr_i(6 downto 0);
@@ -50,19 +50,20 @@ begin
             IE_start <= '0';  
             instr_decoded <= NOP;   
             lsu_busy <= '0';  
-            csr_instr_req <= '0';
+            csr_start <= '0';
             csr_addr <= (others => '0');
         else   
-            IE_start <= '1'; --TODO: Togliere lo start e inserire la ie_instr_req come per le csr
+            IE_start <= '0'; 
             rd <= (others  => '0');
             rs1 <= (others  => '0');
             rs2 <= (others  => '0');
             imm <= (others  => '0'); 
             lsu_busy <= '0';
-            csr_instr_req <= '0';
+            csr_start <= '0';
             csr_addr <= (others => '0');
             case opcode is
                     when "0010011" => --Immediate-Instructions
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
                         imm <= (31 downto 12 => instr_i(31)) & instr_i(31 downto 20);  
@@ -83,6 +84,7 @@ begin
                             when others => instr_decoded <= NOP;
                         end case;
                     when "0110011" => --Register-To-Register-Instructions and M-Instructions
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
                         rs2 <= instr_i(24 downto 20); 
@@ -125,14 +127,17 @@ begin
                             when others => instr_decoded <= NOP;
                         end case;
                     when "1101111" => --JAL-Instructions
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         instr_decoded <= JAL;
                     when "1100111" => --JALR-Instructions
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
                         imm <= (31 downto 12 => instr_i(31)) & instr_i(31 downto 20);
                         instr_decoded <= JALR;
                     when "1100011" => --BRANCH instructions
+                        IE_start <= '1';
                         rs1 <= instr_i(19 downto 15);
                         rs2 <= instr_i(24 downto 20);
                         rd <= (others => '0');
@@ -153,7 +158,8 @@ begin
                             when others =>
                                 instr_decoded <= NOP;
                         end case;
-                    when "0000011" => --LB/LH/LW/LBU/LHU
+                    when "0000011" => --LOAD INSTRUNCTIONS
+                        IE_start <= '1';
                         lsu_busy <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
@@ -172,7 +178,8 @@ begin
                             when others =>
                                 instr_decoded <= NOP;
                         end case;
-                    when "0100011" => --SB/SH/SW
+                    when "0100011" => --STORE INSTRUNCTIONS
+                        IE_start <= '1';
                         lsu_busy <= '1';
                         rs1 <= instr_i(19 downto 15);
                         rs2 <= instr_i(24 downto 20);
@@ -187,21 +194,23 @@ begin
                             when others =>
                                 instr_decoded <= NOP;
                         end case;
-                    when "0110111" => --LUI
+                    when "0110111" => --LOAD UPPER IMMEDIATE 
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         imm <= instr_i(31 downto 12) & (11 downto 0 => '0');
                         instr_decoded <= LUI;
                     when "0010111" => --AUIPC
+                        IE_start <= '1';
                         rd <= instr_i(11 downto 7);
                         imm <= instr_i(31 downto 12) & (11 downto 0 => '0');
                         instr_decoded <= AUIPC;
 
 --------------------CSR INSTRUNCTIONS-----------------------------------------------------------------
                     when "1110011" =>
-                        csr_instr_req <= '1';
+                        csr_start <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
-                        csr_addr => instr_i(31 downto 20);
+                        csr_addr <= instr_i(31 downto 20);
                             case funct3 is 
                                 when "001" => 
                                     instr_decoded <= CSRRW;
@@ -216,7 +225,7 @@ begin
                                 when "111" => 
                                     instr_decoded <= CSRRCI;
                                 when others => 
-                                    csr_instr_req <= '0';
+                                    csr_start <= '0';
                                     instr_decoded <= NOP;
                             end case;
 
@@ -226,6 +235,7 @@ begin
                         rs2 <= (others  => '0');
                         imm <= (others  => '0');
                         instr_decoded <= NOP;
+                        csr_start <= '0';
             end case;
         end if;
     end process;
@@ -253,7 +263,7 @@ begin
             immediate_o <= (others => '0');
             instr_decoded_o <= NOP;
             PC_ID <= (others => '0');
-            csr_instr_req_o <= '0';
+            CSR_start_o <= '0';
             csr_addr_o <= (others => '0');
         elsif rising_edge(clk_i) then
             IE_start_o <= ie_start;
@@ -261,7 +271,7 @@ begin
             PC_ID <= PC_IF;
             bypass1_o <= bypass1;
             bypass2_o <= bypass2;
-            csr_instr_req_o <= csr_instr_req;
+            CSR_start_o <= csr_start;
             csr_addr_o <= csr_addr;
             if stall_i = '0' then
                 rs1_addr_o <= rs1;
