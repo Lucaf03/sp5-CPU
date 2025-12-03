@@ -17,7 +17,7 @@ package sp_pkg is
     CSRRW, CSRRS, CSRRC, CSRRWI, CSRRSI, CSRRCI
   );
 
-  constant mvendoid_addr : std_logic_vector(11 downto 0)  := x"F11";
+  constant mvendorid_addr : std_logic_vector(11 downto 0)  := x"F11";
   constant marchid_addr : std_logic_vector(11 downto 0)   := x"F12";
   constant mimpid_addr : std_logic_vector(11 downto 0)    := x"F13";
   constant mhartid_addr : std_logic_vector(11 downto 0)   := x"F14";
