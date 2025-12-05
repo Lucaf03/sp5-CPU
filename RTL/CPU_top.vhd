@@ -86,7 +86,7 @@ architecture RTL of CPU_top is
             --lsu_busy : out std_logic;
             rs1_addr_i, rs2_addr_i : in std_logic_vector(4 downto 0);
             instr_decoded_i : in INSTR_NAME;
-            WB_start_o : out std_logic;
+            WB_enb_o : out std_logic;
             br_update_o : out std_logic;
             PC_ID : in std_logic_vector(31 downto 0);
             PC_IE : out std_logic_vector(31 downto 0);
@@ -101,17 +101,6 @@ architecture RTL of CPU_top is
             --mem_re_o : out std_logic;
             mem_addr_o : out std_logic_vector(31 downto 0)
         );
-    end component;
-    
-    component WriteBack_Unit is
-        Port (
-            clk_i, rst_i : in std_logic;
-            data_i : in std_logic_vector(31 downto 0);
-            data_o : out std_logic_vector(31 downto 0);
-            wr_rf_o : out std_logic; 
-            PC_IE : in std_logic_vector(31 downto 0);
-            WB_start_i : in std_logic
-         );
     end component;
     
     component Register_file is
@@ -142,8 +131,9 @@ architecture RTL of CPU_top is
         CSR_start : in std_logic;
         csr_addr_i : in std_logic_vector(11 downto 0);
         csr_rd_i : in std_logic_vector(4 downto 0);
-        csr_rs1_i : in std_logic_vector(4 downto 0);
-        csr_imm_i : in std_logic_vector(4 downto 0);
+        csr_rs1_addr_i : in std_logic_vector(4 downto 0);
+        csr_rs1_i : in std_logic_vector(31 downto 0);
+        csr_imm_i : in std_logic_vector(31 downto 0);
         instr_decoded_i : in INSTR_NAME;
         csr_rd_o : out std_logic_vector(4 downto 0);
         WB_start_o : out std_logic;
@@ -195,6 +185,7 @@ begin
     rd_mux <= rd_towb when exec_en = '1' else csr_rd_wire;
     wr_mux <= result when exec_en = '1' else csr_wr_wire;
     wb_enb_mux <= wb_en when exec_en = '1' else csr_wb_enb_wire;
+
     PC_INST : pc_reg port map(
         clk_i => clk_i,
         rst_i => rst_i,
@@ -267,7 +258,7 @@ begin
         rd_o => rd_towb,
         rs1_addr_i => rs1_addr,
         rs2_addr_i => rs2_addr,
-        WB_start_o => wb_en,
+        WB_enb_o => wr_en,
         bypass1 => bypass1,
         bypass2 => bypass2,
         --lsu_busy => lsu_busy_wire,
@@ -283,17 +274,6 @@ begin
         mem_addr_o => data_mem_addr_o
     );
     
-
-    WB_INST : writeback_unit port map(
-        clk_i => clk_i,
-        rst_i => rst_i,
-        data_i => wr_mux,
-        data_o => wr_data,
-        PC_IE => pc_wire3,
-        wr_rf_o => wr_en,
-        WB_start_i => wb_en
-    );
-    
     RF_INST : register_file port map(
         clk_i => clk_i,
         rst_i => rst_i,
@@ -301,7 +281,7 @@ begin
         rs2_addr_i => rs2_addr,
         op1_o => op1,
         op2_o => op2,
-        wr_data_i => wr_data,
+        wr_data_i => wr_mux,
         rd_i => rd_mux,
         wr_enb => wr_en
     );
@@ -312,8 +292,9 @@ begin
         CSR_start => csr_start_wire,
         csr_addr_i => csr_addr_wire,
         csr_rd_i => rd_addr,
-        csr_rs1_i => rs1_addr,
-        csr_imm_i => csr_imm_wire,
+        csr_rs1_addr_i => rs1_addr,
+        csr_rs1_i => op1,
+        csr_imm_i => imm,
         instr_decoded_i => instr_numb,
         csr_read_o => csr_wr_wire,
         WB_start_o => csr_wb_enb_wire,

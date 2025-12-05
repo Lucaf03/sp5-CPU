@@ -210,6 +210,7 @@ begin
                         csr_start <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
+                        imm <= (31 downto 5 => '0') & instr_i(19 downto 15);
                         csr_addr <= instr_i(31 downto 20);
                             case funct3 is 
                                 when "001" => 

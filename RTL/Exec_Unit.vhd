@@ -19,7 +19,7 @@ Port (
     bypass1, bypass2 : in std_logic;
     --WRITEBACK INTERFACE
     result_o : out std_logic_vector(31 downto 0);
-    WB_start_o, br_update_o : out std_logic;
+    WB_enb_o, br_update_o : out std_logic;
 
     --JUMP SIGNALS
     PC_ID : in std_logic_vector(31 downto 0);
@@ -66,7 +66,7 @@ architecture RTL of Exec_Unit is
     signal mul_result : std_logic_vector(65 downto 0);
     signal mul_A, mul_B : std_logic_vector(32 downto 0); --1 bit for the sign
 begin
-    --op2 <= op2_i;
+
     imm <= immediate_i;
     shamt <= immediate_i(4 downto 0);
     shift_enc <= immediate_i(11 downto 5);
@@ -160,14 +160,17 @@ begin
             end if;
 
             if instr_decoded_i = SB then
+                WB_enb <= '0';
                 mem_we <= "0001";
                 mem_data <=  (31 downto 8 => '0') & op2(7 downto 0); 
             end if;
             if instr_decoded_i = SH then
+                WB_enb <= '0';
                 mem_we <= "0010";
                 mem_data <= (31 downto 16 => '0') & op2(15 downto 0);
             end if;
             if instr_decoded_i = SW then
+                WB_enb <= '0';
                 mem_we <= "1111";
                 mem_data <= op2;   
             end if;
@@ -187,6 +190,7 @@ begin
             if (instr_decoded_i = BEQ or instr_decoded_i = BNE or
                 instr_decoded_i = BLT or instr_decoded_i = BGE or 
                 instr_decoded_i = BLTU or instr_decoded_i = BGEU) then
+                WB_enb <= '0';
                 if branch_taken = '1' then
                     br_update <= '1';
                     jump_addr <= std_logic_vector(signed(PC_ID) + signed(imm));
@@ -433,13 +437,13 @@ op1 <= op1_i when bypass1 = '0' else result_o;
         if rst_i = '1' then
             PC_IE <= (others => '0');
             result_o <= (others => '0');
-            WB_start_o <= '0';
+            WB_enb_o <= '0';
             rd_o <= (others => '0');
             br_update_o <= '0';
             jump_addr_o <= (others => '0');
         elsif rising_Edge(clk_i) then
             result_o <= result;
-            WB_start_o <= WB_enb;
+            WB_enb_o <= WB_enb;
             rd_o <= rd_i;
             jump_addr_o <= jump_addr;
             br_update_o <= br_update;

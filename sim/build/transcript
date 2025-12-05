@@ -1,5 +1,5 @@
-# //  Questa Sim-64
-# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //  Questa Sim
+# //  Version 2021.2_1 linux May 15 2021
 # //
 # //  Copyright 1991-2021 Mentor Graphics Corporation
 # //  All Rights Reserved.
@@ -13,8 +13,8 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim work.tb_cpu 
-# Start time: 18:51:39 on Dec 03,2025
-# ** Note: (vsim-3812) Design is being optimized...
+# Start time: 17:59:50 on Dec 05,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -30,5 +30,23 @@ run 1ms
 #    Time: 0 ns  Iteration: 0  Instance: /tb_cpu/cpu_inst/RF_INST
 # ** Warning: NUMERIC_STD.">=": metavalue detected, returning FALSE
 #    Time: 0 ns  Iteration: 0  Instance: /tb_cpu/cpu_inst/EX_INST
-# End time: 18:55:19 on Dec 03,2025, Elapsed time: 0:03:40
+# Causality operation skipped due to absence of debug database file
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# End time: 18:11:01 on Dec 05,2025, Elapsed time: 0:11:11
 # Errors: 0, Warnings: 3

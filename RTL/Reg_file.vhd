@@ -40,6 +40,7 @@ begin
     op2_o <= reg_file(to_integer(unsigned(rs2_addr_i)));
 
 
+
     
     ------------------------------------------------------------------
     -- Processo di dump del register file a fine simulazione

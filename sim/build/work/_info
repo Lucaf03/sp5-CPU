@@ -72,6 +72,10 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
 !s11e vcom 2021.2_1 2021.05, May 15 2021
 13
 !s112 1.1
@@ -81,10 +85,10 @@ R0
 cModel Technology
 Z1 d/home/luca/sp5-CPU/sim/scripts
 T_opt
-!s110 1764590647
-Vh]iH@@4^>dbHD;zBd:IoQ2
+!s110 1764953768
+V[6OZD2AzSGHb?3TFm^iha2
 Z2 04 6 3 work tb_cpu sim 1
-=1-000ae431a4f1-692d8437-6b8a6-3724
+=1-000ae431a4f1-69330ea8-c98-52bd
 Z3 !s124 OEM100
 Z4 o-quiet -auto_acc_if_foreign -work work
 Z5 tCvgOpt 0
@@ -101,13 +105,14 @@ R4
 R5
 n@_opt1
 OL;O;2021.2_1;73
+R1
 Ebranch_unit
-Z6 w1764672830
+Z6 w1764669343
 Z7 DPx4 work 6 sp_pkg 0 22 3jo1YnFa0RWFF9T3GC:ZG1
 Z8 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z9 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z10 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 1690
+!i122 1848
 Z11 d/home/luca/sp5-CPU/sim/build
 Z12 8/home/luca/sp5-CPU/RTL/Branch_Unit.vhd
 Z13 F/home/luca/sp5-CPU/RTL/Branch_Unit.vhd
@@ -115,11 +120,11 @@ l0
 L9 1
 VgJPID9gR6cV=;C3k1MhjT2
 !s100 _aVj=E@VSE83fnOF362oe0
-Z14 OL;C;2021.2_1;73
+Z14 OE;C;2021.2_1;73
 33
-Z15 !s110 1764784290
+Z15 !s110 1764953986
 !i10b 1
-Z16 !s108 1764784290.000000
+Z16 !s108 1764953986.000000
 Z17 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Branch_Unit.vhd|
 Z18 !s107 /home/luca/sp5-CPU/RTL/Branch_Unit.vhd|
 !i113 0
@@ -131,7 +136,7 @@ R8
 R9
 R10
 DEx4 work 11 branch_unit 0 22 gJPID9gR6cV=;C3k1MhjT2
-!i122 1690
+!i122 1848
 l33
 L24 68
 VGZ=@]o^?mF`HkPgIblIU42
@@ -147,12 +152,12 @@ R18
 R19
 R20
 Ecpu_top
-Z21 w1764783768
+Z21 w1764953755
 R7
 R8
 R9
 R10
-!i122 1697
+!i122 1854
 R11
 Z22 8/home/luca/sp5-CPU/RTL/CPU_top.vhd
 Z23 F/home/luca/sp5-CPU/RTL/CPU_top.vhd
@@ -162,11 +167,11 @@ Vzc^En4JWIGgKM875Nhf>b3
 !s100 EMe;>=iH<mkL0EOP1f@Ad2
 R14
 33
-Z24 !s110 1764784291
+R15
 !i10b 1
-Z25 !s108 1764784291.000000
-Z26 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/CPU_top.vhd|
-Z27 !s107 /home/luca/sp5-CPU/RTL/CPU_top.vhd|
+R16
+Z24 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/CPU_top.vhd|
+Z25 !s107 /home/luca/sp5-CPU/RTL/CPU_top.vhd|
 !i113 0
 R19
 R20
@@ -176,42 +181,42 @@ R8
 R9
 R10
 DEx4 work 7 cpu_top 0 22 zc^En4JWIGgKM875Nhf>b3
-!i122 1697
-l189
-L26 299
-VmORd6J54g3PkmK>gb6C`51
-!s100 MccFlPjkcSU=1F5zVV8bn2
-R14
-33
-R24
-!i10b 1
-R25
-R26
-R27
-!i113 0
-R19
-R20
-Ecsr_unit
-Z28 w1764784286
-R7
-R8
-R9
-R10
-!i122 1693
-R11
-Z29 8/home/luca/sp5-CPU/RTL/CSR_unit.vhd
-Z30 F/home/luca/sp5-CPU/RTL/CSR_unit.vhd
-l0
-L7 1
-ViH@3N6e[m8WoMI8G1?TE>0
-!s100 Y^MXX<MVL0k48Oa=WS>eE2
+!i122 1854
+l179
+L26 280
+V5n6Qk>Qj6YUP0QD[;oO^B1
+!s100 =n5RKW;NcY8_cJIEkhXhA2
 R14
 33
 R15
 !i10b 1
 R16
-Z31 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/CSR_unit.vhd|
-Z32 !s107 /home/luca/sp5-CPU/RTL/CSR_unit.vhd|
+R24
+R25
+!i113 0
+R19
+R20
+Ecsr_unit
+Z26 w1764873687
+R7
+R8
+R9
+R10
+!i122 1851
+R11
+Z27 8/home/luca/sp5-CPU/RTL/CSR_unit.vhd
+Z28 F/home/luca/sp5-CPU/RTL/CSR_unit.vhd
+l0
+L7 1
+V^;9X3JeFN]f4P?eZCcXMD3
+!s100 R`12G1ZSmmEKc?Y2fTK<D0
+R14
+33
+R15
+!i10b 1
+R16
+Z29 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/CSR_unit.vhd|
+Z30 !s107 /home/luca/sp5-CPU/RTL/CSR_unit.vhd|
 !i113 0
 R19
 R20
@@ -220,19 +225,19 @@ R7
 R8
 R9
 R10
-DEx4 work 8 csr_unit 0 22 iH@3N6e[m8WoMI8G1?TE>0
-!i122 1693
-l35
-L22 100
-V>BFDjbERX@geknVXBS>[S2
-!s100 =@9R3mNT^0cD5UR8?c6O92
+DEx4 work 8 csr_unit 0 22 ^;9X3JeFN]f4P?eZCcXMD3
+!i122 1851
+l36
+L23 150
+V3A0_MWM=DCnYf>3VBo3FX1
+!s100 _W<ZACS=fV5nd8OleDAXB3
 R14
 33
 R15
 !i10b 1
 R16
-R31
-R32
+R29
+R30
 !i113 0
 R19
 R20
@@ -241,10 +246,10 @@ R6
 R8
 R9
 R10
-!i122 1687
+!i122 1845
 R11
-Z33 8/home/luca/sp5-CPU/RTL/Data_ram.vhd
-Z34 F/home/luca/sp5-CPU/RTL/Data_ram.vhd
+Z31 8/home/luca/sp5-CPU/RTL/Data_ram.vhd
+Z32 F/home/luca/sp5-CPU/RTL/Data_ram.vhd
 l0
 L6 1
 VJ066U:j@EcM_ZaCbh5>f;0
@@ -254,8 +259,8 @@ R14
 R15
 !i10b 1
 R16
-Z35 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Data_ram.vhd|
-Z36 !s107 /home/luca/sp5-CPU/RTL/Data_ram.vhd|
+Z33 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Data_ram.vhd|
+Z34 !s107 /home/luca/sp5-CPU/RTL/Data_ram.vhd|
 !i113 0
 R19
 R20
@@ -264,7 +269,7 @@ R8
 R9
 R10
 DEx4 work 8 data_ram 0 22 J066U:j@EcM_ZaCbh5>f;0
-!i122 1687
+!i122 1845
 l24
 L21 46
 VE63jn6PbPe=m4>SVPVXE22
@@ -274,8 +279,8 @@ R14
 R15
 !i10b 1
 R16
-R35
-R36
+R33
+R34
 !i113 0
 R19
 R20
@@ -289,27 +294,27 @@ l49
 L22 147
 V^LZeg<g0jAe_4SY1TU6M80
 !s100 7=nE4CVB=N]h]i=J7JYkM2
-OE;C;2021.2_1;73
+R14
 33
 !s110 1757949058
 !i10b 1
 !s108 1757949058.000000
-R35
-R36
+R33
+R34
 !i113 0
 R19
 R20
 w1757948962
 Edecode_unit
-Z37 w1764784142
+Z35 w1764789649
 R7
 R8
 R9
 R10
-!i122 1691
+!i122 1849
 R11
-Z38 8/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
-Z39 F/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
+Z36 8/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
+Z37 F/home/luca/sp5-CPU/RTL/Decode_Unit.vhd
 l0
 L7 1
 ViAI99T=9U=02o]<VLM5co2
@@ -319,8 +324,8 @@ R14
 R15
 !i10b 1
 R16
-Z40 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
-Z41 !s107 /home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
+Z38 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
+Z39 !s107 /home/luca/sp5-CPU/RTL/Decode_Unit.vhd|
 !i113 0
 R19
 R20
@@ -330,42 +335,42 @@ R8
 R9
 R10
 DEx4 work 11 decode_unit 0 22 iAI99T=9U=02o]<VLM5co2
-!i122 1691
+!i122 1849
 l39
-L26 264
-VF<ZTi;QAlTD>STE8W_L3a3
-!s100 Fm:OK9:d[=K`niYl>h4e@2
+L26 265
+VY`3]`Ck]AeKB@>XW?HDK21
+!s100 IZg11_U`W2DL?<B@_9Z213
 R14
 33
 R15
 !i10b 1
 R16
-R40
-R41
+R38
+R39
 !i113 0
 R19
 R20
 Eexec_unit
-R6
+Z40 w1764873491
 R7
 R8
 R9
 R10
-!i122 1692
+!i122 1850
 R11
-Z42 8/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
-Z43 F/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
+Z41 8/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
+Z42 F/home/luca/sp5-CPU/RTL/Exec_Unit.vhd
 l0
 L8 1
-V6AEjX^ge7JYjY[X[WgLIE3
-!s100 fQF3R7]PY`=8iaaP=a9JF1
+V_BaZll3YWDb@P2>o60=m52
+!s100 GO100iERPJc0F0gk8JlP91
 R14
 33
 R15
 !i10b 1
 R16
-Z44 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
-Z45 !s107 /home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
+Z43 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
+Z44 !s107 /home/luca/sp5-CPU/RTL/Exec_Unit.vhd|
 !i113 0
 R19
 R20
@@ -374,29 +379,29 @@ R7
 R8
 R9
 R10
-DEx4 work 9 exec_unit 0 22 6AEjX^ge7JYjY[X[WgLIE3
-!i122 1692
+DEx4 work 9 exec_unit 0 22 _BaZll3YWDb@P2>o60=m52
+!i122 1850
 l68
-L38 412
-VJ34SVJZ^i;mgA5`Y9dJ9_2
-!s100 `I13kLfe4QNMiNhI2ZVSR2
+L38 416
+VjFF_E1P6VAWH9hO;TO7L40
+!s100 SLJ_@RI]z^LV2XKMj9jW31
 R14
 33
 R15
 !i10b 1
 R16
+R43
 R44
-R45
 !i113 0
 R19
 R20
 Efetch_unit
-R6
+Z45 w1764873922
 R7
 R8
 R9
 R10
-!i122 1689
+!i122 1847
 R11
 Z46 8/home/luca/sp5-CPU/RTL/Fetch_Unit.vhd
 Z47 F/home/luca/sp5-CPU/RTL/Fetch_Unit.vhd
@@ -420,7 +425,7 @@ R8
 R9
 R10
 DEx4 work 10 fetch_unit 0 22 HC`eJhPDT4NnTD]P]154A0
-!i122 1689
+!i122 1847
 l29
 L23 52
 V]COlj38DAG61Ce5mCj?Eb1
@@ -440,7 +445,7 @@ R6
 R8
 R9
 R10
-!i122 1688
+!i122 1846
 R11
 Z50 8/home/luca/sp5-CPU/RTL/Instr_mem.vhd
 Z51 F/home/luca/sp5-CPU/RTL/Instr_mem.vhd
@@ -463,7 +468,7 @@ R8
 R9
 R10
 DEx4 work 9 instr_mem 0 22 AX_GN`TFHd0ATM31V3J8V3
-!i122 1688
+!i122 1846
 l46
 L19 110
 V^lHR;2Z[@@9RgOzN=VS`M0
@@ -484,7 +489,7 @@ R7
 R8
 R9
 R10
-!i122 1696
+!i122 1853
 R11
 Z54 8/home/luca/sp5-CPU/RTL/PC_reg.vhd
 Z55 F/home/luca/sp5-CPU/RTL/PC_reg.vhd
@@ -494,9 +499,9 @@ VKD66lkP[CHH3>_`gjC@7h1
 !s100 gHZ_Q]KP:gj;hnS[hYGg?0
 R14
 33
-R24
+R15
 !i10b 1
-R25
+R16
 Z56 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/PC_reg.vhd|
 Z57 !s107 /home/luca/sp5-CPU/RTL/PC_reg.vhd|
 !i113 0
@@ -508,42 +513,42 @@ R8
 R9
 R10
 DEx4 work 6 pc_reg 0 22 KD66lkP[CHH3>_`gjC@7h1
-!i122 1696
+!i122 1853
 l20
 L17 33
 VkQ:;jI^_^^TgXoC5i6oJD1
 !s100 2djPQ1U?YRF8b27TFdbcJ2
 R14
 33
-R24
+R15
 !i10b 1
-R25
+R16
 R56
 R57
 !i113 0
 R19
 R20
 Eregister_file
-R6
+Z58 w1764873759
 R7
 R8
 R9
 R10
-!i122 1695
+!i122 1852
 R11
-Z58 8/home/luca/sp5-CPU/RTL/Reg_file.vhd
-Z59 F/home/luca/sp5-CPU/RTL/Reg_file.vhd
+Z59 8/home/luca/sp5-CPU/RTL/Reg_file.vhd
+Z60 F/home/luca/sp5-CPU/RTL/Reg_file.vhd
 l0
 L7 1
 V=jTj^Hlk9OOV4KP?bY_S;2
 !s100 5HHin4fDdQXo83IGTma2<2
 R14
 33
-R24
+R15
 !i10b 1
-R25
-Z60 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Reg_file.vhd|
-Z61 !s107 /home/luca/sp5-CPU/RTL/Reg_file.vhd|
+R16
+Z61 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/Reg_file.vhd|
+Z62 !s107 /home/luca/sp5-CPU/RTL/Reg_file.vhd|
 !i113 0
 R19
 R20
@@ -553,18 +558,18 @@ R8
 R9
 R10
 DEx4 work 13 register_file 0 22 =jTj^Hlk9OOV4KP?bY_S;2
-!i122 1695
+!i122 1852
 l21
-L18 47
-V4WeEV]lF]<QK`m9Q7Mh4;3
-!s100 UVekOYJKz0WHG_TbdBI822
+L18 48
+V>niG^LQ9>MFjlDbDfgefi1
+!s100 <WPghD4@ne5U>;:7]O@?^0
 R14
 33
-R24
+R15
 !i10b 1
-R25
-R60
+R16
 R61
+R62
 !i113 0
 R19
 R20
@@ -572,8 +577,8 @@ Psp_pkg
 R8
 R9
 R10
-!i122 1686
-w1764784261
+!i122 1844
+w1764788328
 R11
 8/home/luca/sp5-CPU/RTL/sp-PKG.vhd
 F/home/luca/sp5-CPU/RTL/sp-PKG.vhd
@@ -596,21 +601,21 @@ R6
 R8
 R9
 R10
-!i122 1698
+!i122 1855
 R11
-Z62 8/home/luca/sp5-CPU/RTL/tb_cpu.vhd
-Z63 F/home/luca/sp5-CPU/RTL/tb_cpu.vhd
+Z63 8/home/luca/sp5-CPU/RTL/tb_cpu.vhd
+Z64 F/home/luca/sp5-CPU/RTL/tb_cpu.vhd
 l0
 L6 1
 Vz5eD[lFmCoWoP46>bQ9@>0
 !s100 2VW9ZP?78Zg3[]];UoiIS0
 R14
 33
-R24
+Z65 !s110 1764953987
 !i10b 1
-R25
-Z64 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/tb_cpu.vhd|
-Z65 !s107 /home/luca/sp5-CPU/RTL/tb_cpu.vhd|
+Z66 !s108 1764953987.000000
+Z67 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/tb_cpu.vhd|
+Z68 !s107 /home/luca/sp5-CPU/RTL/tb_cpu.vhd|
 !i113 0
 R19
 R20
@@ -618,19 +623,19 @@ Asim
 R8
 R9
 R10
-DEx4 work 6 tb_cpu 0 22 z5eD[lFmCoWoP46>bQ9@>0
-!i122 1698
+Z69 DEx4 work 6 tb_cpu 0 22 z5eD[lFmCoWoP46>bQ9@>0
+!i122 1855
 l80
-L9 155
-VVahNA?IZFN2d:I=K>cn?Y2
-!s100 MmCN7TKcSSo;5YhOIZI290
+Z70 L9 155
+Z71 VVahNA?IZFN2d:I=K>cn?Y2
+Z72 !s100 MmCN7TKcSSo;5YhOIZI290
 R14
 33
-R24
-!i10b 1
-R25
-R64
 R65
+!i10b 1
+R66
+R67
+R68
 !i113 0
 R19
 R20
@@ -640,21 +645,21 @@ R7
 R8
 R9
 R10
-!i122 1694
+!i122 1779
 R11
-Z66 8/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
-Z67 F/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
+Z73 8/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
+Z74 F/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd
 l0
 L7 1
 V:93g@3hV=B1LnlbJm4P@I0
 !s100 L9gYAQD:WhdI@:9U?O[KM3
 R14
 33
-R24
+Z75 !s110 1764874030
 !i10b 1
-R16
-Z68 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
-Z69 !s107 /home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
+Z76 !s108 1764874030.000000
+Z77 !s90 -2008|-quiet|-suppress|2583|-work|work|/home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
+Z78 !s107 /home/luca/sp5-CPU/RTL/WriteBack_Unit.vhd|
 !i113 0
 R19
 R20
@@ -664,18 +669,18 @@ R8
 R9
 R10
 DEx4 work 14 writeback_unit 0 22 :93g@3hV=B1LnlbJm4P@I0
-!i122 1694
+!i122 1779
 l19
 L18 16
 V6OYOWS]GfPEiRb7PMeRGC1
 !s100 Tk^U5L;CaTOa6N[oDe1842
 R14
 33
-R24
+R75
 !i10b 1
-R16
-R68
-R69
+R76
+R77
+R78
 !i113 0
 R19
 R20
