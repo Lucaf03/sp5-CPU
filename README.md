@@ -8,7 +8,6 @@ The CPU supports most of the RV32I Base Integer Instruction Set, with the follow
 
 - No support for Environment Calls and Breakpoints (e.g. ECALL, EBREAK)
 
-- HINT instructions are not implemented
 
 
 This CPU is based on a 4-stage pipeline:
