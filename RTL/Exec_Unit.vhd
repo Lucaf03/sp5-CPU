@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use work.sp_pkg.all;
 
---TODO-FUTURE: DIVISIONS
+--TODO-FUTURE: DIVISIONS, CUSTOM MULTIPLIER
 
 entity Exec_Unit is
 Port ( 
@@ -26,6 +26,11 @@ Port (
     PC_IE : out std_logic_vector(31 downto 0);
     jump_addr_o : out std_logic_vector(31 downto 0);
 
+    --CSR UNIT INTERFACE
+    csr_start_o : out std_logic; --Combinatorial signal
+    csr_op_o : out std_logic_vector(31 downto 0); --Combinatorial signal
+    csr_read_i : in std_logic_vector(31 downto 0);
+    csr_op1_addr_o : out std_logic_vector(31 downto 0);
     --DATA MEMORY INTERFACE
     mem_en_o : out std_logic;
     mem_data_i : in std_logic_vector(31 downto 0);
@@ -65,8 +70,14 @@ architecture RTL of Exec_Unit is
     signal mul_enb : std_logic;
     signal mul_result : std_logic_vector(65 downto 0);
     signal mul_A, mul_B : std_logic_vector(32 downto 0); --1 bit for the sign
-begin
 
+    signal csr_start : std_logic;
+    signal csr_op : std_logic_vector(31 downto 0);
+    signal csr_op_addr : std_logic_vector(31 downto 0);
+begin
+    csr_start_o <= csr_start;
+    csr_op_o <= csr_op;
+    csr_op1_addr_o <= csr_op_addr;
     imm <= immediate_i;
     shamt <= immediate_i(4 downto 0);
     shift_enc <= immediate_i(11 downto 5);
@@ -84,6 +95,7 @@ begin
             mem_we <= (others => '0');
             addr <= (others => '0');
             mul_enb <= '0';
+            csr_start <= '0';
         else 
             WB_enb <= '1';    
             br_update <= '0';
@@ -93,6 +105,7 @@ begin
             mem_data <= (others => '0');
             addr <= (others => '0');
             mul_enb <= '0';
+            csr_start <= '0';
 
             if (instr_decoded_i = ADDI or instr_decoded_i = ADD or instr_decoded_i = SUB or 
                 instr_decoded_i = JAL or instr_decoded_i = JALR or instr_decoded_i = AUIPC) then
@@ -207,6 +220,12 @@ begin
                 result <= mul_result(31 downto 0);
             end if;
 
+            if (instr_decoded_i = CSRRW or instr_decoded_i = CSRRWI or 
+                instr_decoded_i = CSRRS or instr_decoded_i = CSRRSI or 
+                instr_decoded_i = CSRRC or instr_decoded_i = CSRRC) then
+                csr_start <= '1';
+                result <= csr_read_i;
+            end if;
         end if;
     end process;
 -- MULTIPLIER ---------------------------------------
@@ -217,7 +236,6 @@ begin
         else 
             mul_result <= (others => '0');
         end if;
-
     end process;
 
 -- MAPPER -------------------------------------------
@@ -243,7 +261,7 @@ begin
         branch_taken <= '0';
         mul_A <= (others => '0');
         mul_B <= (others => '0');
-
+        csr_op <= (others => '0');
 
         if instr_decoded_i = ADDI then
             add_A <= op1;
@@ -402,6 +420,17 @@ begin
             mul_A <= op1(31)&op1;
             mul_B <= ('0'& op2);
         end if;
+
+        if instr_decoded_i = CSRRW or instr_decoded_i = CSRRC or instr_decoded_i = CSRRS then
+            csr_op <= op1;
+            csr_op_addr <= (31 downto 5 => '0') & rs1_addr_i;
+        end if;
+
+        if instr_decoded_i = CSRRWI or instr_decoded_i = CSRRCI or instr_decoded_i = CSRRSI then
+            csr_op <= imm;
+            csr_op_addr <= imm;
+        end if;
+
     end process;
 
 -----------------------------------------------------
@@ -411,7 +440,6 @@ op2 <= op2_i when bypass2 = '0' else result_o;
 op1 <= op1_i when bypass1 = '0' else result_o;
 
 -------------------------------------------------------
-
 -- MEMORY MAP HANDLER ---------------------------------
 --RAM: 0x2000 - 0x4000
 

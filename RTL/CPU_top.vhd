@@ -34,6 +34,7 @@ architecture RTL of CPU_top is
         IF_start_i : in std_logic;
         clk_i, rst_i : in std_logic;
         lsu_busy : in std_logic;
+        csr_busy : in std_logic;
         instr_i : in std_logic_vector(31 downto 0);
         stall_o : out std_logic;
         ID_start_o : out std_logic;
@@ -71,7 +72,7 @@ architecture RTL of CPU_top is
             immediate_o : out std_logic_vector(31 downto 0);
             bypass1_o, bypass2_o : out std_logic;
             rs1_addr_o, rs2_addr_o, rd_addr_o : out std_logic_vector(4 downto 0);
-            CSR_start_o : out std_logic;
+            csr_busy_o : out std_logic;
             csr_addr_o : out std_logic_vector(11 downto 0)
         ); 
     end component;
@@ -93,6 +94,10 @@ architecture RTL of CPU_top is
             jump_addr_o : out std_logic_vector(31 downto 0);
             result_o : out std_logic_vector(31 downto 0);
             bypass1, bypass2 : in std_logic;
+            csr_start_o : out std_logic; --Combinatorial signal
+            csr_op_o : out std_logic_vector(31 downto 0); --Combinatorial signal
+            csr_read_i : in std_logic_vector(31 downto 0);
+            csr_op1_addr_o : out std_logic_vector(31 downto 0);
             --DATA MEMORY INTERFACE
             mem_en_o : out std_logic;
             mem_data_i : in std_logic_vector(31 downto 0);
@@ -131,9 +136,9 @@ architecture RTL of CPU_top is
         CSR_start : in std_logic;
         csr_addr_i : in std_logic_vector(11 downto 0);
         csr_rd_i : in std_logic_vector(4 downto 0);
-        csr_rs1_addr_i : in std_logic_vector(4 downto 0);
-        csr_rs1_i : in std_logic_vector(31 downto 0);
-        csr_imm_i : in std_logic_vector(31 downto 0);
+        csr_op1_addr_i : in std_logic_vector(31 downto 0);
+        csr_op_i : in std_logic_vector(31 downto 0);
+        --csr_imm_i : in std_logic_vector(31 downto 0);
         instr_decoded_i : in INSTR_NAME;
         csr_rd_o : out std_logic_vector(4 downto 0);
         WB_start_o : out std_logic;
@@ -169,9 +174,12 @@ architecture RTL of CPU_top is
     signal csr_addr_wire : std_logic_vector(11 downto 0);
     signal csr_rd_wire : std_logic_vector(4 downto 0);
     signal csr_rs1_wire : std_logic_vector(4 downto 0);
+    signal csr_op1_addr_wire : std_logic_vector(31 downto 0);
     signal csr_imm_wire : std_logic_vector(4 downto 0);
     signal csr_wr_wire : std_logic_vector(31 downto 0);
     signal csr_wb_enb_wire : std_logic;
+    signal csr_busy_wire : std_logic;
+    signal csr_op_wire : std_logic_vector(31 downto 0);
 
     signal rd_mux : std_logic_vector(4 downto 0);
     signal wr_mux : std_logic_vector(31 downto 0);
@@ -182,9 +190,9 @@ begin
     stall_or <= stall_wire1;
     instr_mem_addr_o <= instr_addr;
 
-    rd_mux <= rd_towb when exec_en = '1' else csr_rd_wire;
-    wr_mux <= result when exec_en = '1' else csr_wr_wire;
-    wb_enb_mux <= wb_en when exec_en = '1' else csr_wb_enb_wire;
+    rd_mux <= rd_towb when wb_enb_mux = '1' else csr_rd_wire;
+    --wr_mux <= result when wb_enb_mux = '1' else csr_wr_wire;
+    wb_enb_mux <= wr_en or csr_wb_enb_wire;
 
     PC_INST : pc_reg port map(
         clk_i => clk_i,
@@ -204,6 +212,7 @@ begin
         ID_start_o => decode_en,
         pc_update_o => pc_update,
         lsu_busy => lsu_busy_wire,
+        csr_busy => csr_busy_wire,
         stall_o => stall_wire1,
         fetch_req_o => fetch_req,
         PC => instr_addr,
@@ -237,12 +246,12 @@ begin
         rs1_addr_o => rs1_addr,
         rs2_addr_o => rs2_addr,
         lsu_busy => lsu_busy_wire,
+        csr_busy_o => csr_busy_wire,
         rd_addr_o => rd_addr,
         immediate_o => imm,
         bypass1_o => bypass1,
         bypass2_o => bypass2,
         instr_decoded_o => instr_numb,
-        CSR_start_o => csr_start_wire,
         csr_addr_o => csr_addr_wire
     );
     
@@ -267,6 +276,10 @@ begin
         jump_addr_o => jump_mux2,
         instr_decoded_i => instr_numb,
         result_o => result,
+        CSR_start_o => csr_start_wire,
+        csr_op_o => csr_op_wire,
+        csr_read_i => csr_wr_wire,
+        csr_op1_addr_o => csr_op1_addr_wire,
         mem_en_o => data_mem_en_o,
         mem_data_i => data_mem_data_i,
         mem_data_o => data_mem_data_o,
@@ -281,9 +294,9 @@ begin
         rs2_addr_i => rs2_addr,
         op1_o => op1,
         op2_o => op2,
-        wr_data_i => wr_mux,
+        wr_data_i => result,
         rd_i => rd_mux,
-        wr_enb => wr_en
+        wr_enb => wb_enb_mux
     );
 
     CSR_INST : CSR_unit port map(
@@ -292,9 +305,8 @@ begin
         CSR_start => csr_start_wire,
         csr_addr_i => csr_addr_wire,
         csr_rd_i => rd_addr,
-        csr_rs1_addr_i => rs1_addr,
-        csr_rs1_i => op1,
-        csr_imm_i => imm,
+        csr_op1_addr_i => csr_op1_addr_wire,
+        csr_op_i => csr_op_wire,
         instr_decoded_i => instr_numb,
         csr_read_o => csr_wr_wire,
         WB_start_o => csr_wb_enb_wire,

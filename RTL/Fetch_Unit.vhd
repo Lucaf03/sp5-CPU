@@ -13,6 +13,7 @@ Port (
     IF_start_i : in std_logic;
     clk_i, rst_i : in std_logic;
     lsu_busy : in std_logic;
+    csr_busy : in std_logic;
     instr_i : in std_logic_vector(31 downto 0);
     stall_o : out std_logic;
     ID_start_o : out std_logic;
@@ -28,31 +29,23 @@ architecture RTL of Fetch_unit is
     signal stall : std_logic;
 begin 
     instr_fetched <= instr_i;
-    IF_enable <= IF_start_i and (not lsu_busy);
-    --stall_o <= stall;
+    IF_enable <= IF_start_i and (not lsu_busy) and (not csr_busy);
+
     comb_fetch : process(all) 
     begin
         if IF_enable = '1' then
             fetch_req_o <= '1';
             id_start <= '1';
             pc_update_o <= '1';
+            stall <= '0';
         else 
+            stall <= '1';
             fetch_req_o <= '0';
             id_start <= '0';
             pc_update_o <= '0';
         end if;
     end process;
     
-    process(clk_i) begin
-        if rising_edge(clk_i) then
-            if lsu_busy = '0' then
-                stall_o <= '0';
-            else 
-                stall_o <= '1';
-            end if;
-        end if;
-    end process;
-
 
     reg_pipeline : process(clk_i, rst_i) 
     begin
@@ -60,9 +53,11 @@ begin
             instr_o <= (others => '0');
             id_start_o <= '0';
             PC_IF <= (others => '0');
+            stall_o <= '0';
         elsif rising_edge(clk_i) then
             id_start_o <= id_start;
             PC_IF <= PC;
+            stall_o <= stall;
             if IF_enable = '1' then
                 instr_o <= instr_fetched;
             else 

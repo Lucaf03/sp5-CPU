@@ -17,7 +17,9 @@ Port
 	br_update_o : out std_logic;
 	is_jal_o : out std_logic;
 	IF_start_o : out std_logic;
-	jump_addr_o: out std_logic_vector(31 downto 0)
+	jump_addr_o: out std_logic_vector(31 downto 0);
+	raise_exception_br : out std_logic;
+	exception_cause : out std_logic_vector(30 downto 0)
 );
 end entity;
 
@@ -30,6 +32,7 @@ architecture RTL of Branch_Unit is
     signal j_update : std_logic;
     signal br_update : std_logic;
     signal count : std_logic_vector(1 downto 0);
+
 begin
 	instr_fetched <= instr_i;
     br_update <= br_update_i;
@@ -86,6 +89,14 @@ begin
 					count <= "00";
 					IF_start_o <= '0';
 			end case;
+		end if;
+	end process;
+
+	process(jump_addr, br_addr_i) begin
+		if jump_addr(1 downto 0) /= "00" or br_addr_i(1 downto 0) /= "00" then
+			raise_exception_br <= '1';
+		else 
+			raise_exception_br <= '0';
 		end if;
 	end process;
 end RTL;

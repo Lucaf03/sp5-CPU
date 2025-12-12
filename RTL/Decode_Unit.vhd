@@ -18,12 +18,17 @@ Port (
     lsu_busy : out std_logic;
     bypass1_o, bypass2_o : out std_logic;
     rs1_addr_o, rs2_addr_o, rd_addr_o : out std_logic_vector(4 downto 0);
-    CSR_start_o : out std_logic;
+    csr_busy_o : out std_logic;
     csr_addr_o : out std_logic_vector(11 downto 0)
 );
 end Decode_Unit;
 
 architecture RTL of Decode_Unit is
+    subtype decode_states is (normal, trap_handling);
+    signal state : decode_states;
+
+    signal raise_exception : std_logic;
+    signal normal_decode : std_logic;
     signal opcode : std_logic_vector(6 downto 0);
     signal rs1, rs2, rd : std_logic_vector(4 downto 0);
     signal imm : std_logic_vector(31 downto 0);
@@ -34,12 +39,33 @@ architecture RTL of Decode_Unit is
     signal bypass1, bypass2 : std_logic;
     signal rd_prev : std_logic_vector(4 downto 0);
 
-    signal csr_start : std_logic;
     signal csr_addr : std_logic_vector(11 downto 0);
 begin
     opcode <= instr_i(6 downto 0);
     funct3 <= instr_i(14 downto 12); 
     funct7 <= instr_i(31 downto 25);
+
+    process(clk_i, rst_i) 
+    begin 
+        if rst_i = '1' then
+            state <= normal;
+        elsif rising_edge(clk_i) then
+            case state is 
+                when normal => 
+                    normal_decode = '1';
+                    if raise_exception = '1' then
+                        state <= trap_handling;
+                        normal_decode = '0';
+                    end if;
+                when trap_handling =>
+                    raise_exception <= '0';
+                when others => 
+                    normal_decode <= '1';
+                    raise_exception <= '0';
+            end case;
+        end if;
+    end process;
+
     comb_dec : process(all) 
     begin
         if ID_start_i = '0' then
@@ -50,7 +76,7 @@ begin
             IE_start <= '0';  
             instr_decoded <= NOP;   
             lsu_busy <= '0';  
-            csr_start <= '0';
+            csr_busy_o <= '0';
             csr_addr <= (others => '0');
         else   
             IE_start <= '0'; 
@@ -59,7 +85,7 @@ begin
             rs2 <= (others  => '0');
             imm <= (others  => '0'); 
             lsu_busy <= '0';
-            csr_start <= '0';
+            csr_busy_o <= '0';
             csr_addr <= (others => '0');
             case opcode is
                     when "0010011" => --Immediate-Instructions
@@ -207,7 +233,7 @@ begin
 
 --------------------CSR INSTRUNCTIONS-----------------------------------------------------------------
                     when "1110011" =>
-                        csr_start <= '1';
+                        csr_busy_o <= '1';
                         rd <= instr_i(11 downto 7);
                         rs1 <= instr_i(19 downto 15);
                         imm <= (31 downto 5 => '0') & instr_i(19 downto 15);
@@ -226,7 +252,7 @@ begin
                                 when "111" => 
                                     instr_decoded <= CSRRCI;
                                 when others => 
-                                    csr_start <= '0';
+                                    csr_busy_o <= '0';
                                     instr_decoded <= NOP;
                             end case;
 
@@ -236,7 +262,7 @@ begin
                         rs2 <= (others  => '0');
                         imm <= (others  => '0');
                         instr_decoded <= NOP;
-                        csr_start <= '0';
+                        csr_busy_o <= '0';
             end case;
         end if;
     end process;
@@ -264,27 +290,52 @@ begin
             immediate_o <= (others => '0');
             instr_decoded_o <= NOP;
             PC_ID <= (others => '0');
-            CSR_start_o <= '0';
             csr_addr_o <= (others => '0');
         elsif rising_edge(clk_i) then
-            IE_start_o <= ie_start;
-            instr_decoded_o <= instr_decoded;
-            PC_ID <= PC_IF;
-            bypass1_o <= bypass1;
-            bypass2_o <= bypass2;
-            CSR_start_o <= csr_start;
-            csr_addr_o <= csr_addr;
-            if stall_i = '0' then
-                rs1_addr_o <= rs1;
-                rs2_addr_o <= rs2;
-                rd_addr_o <= rd;
-                immediate_o <= imm;
-            else 
-                rd_addr_o <= (others  => '0');
-                rs1_addr_o <= (others  => '0');
-                rs2_addr_o <= (others  => '0');
-                immediate_o <= (others => '0');
-            end if;
+            case state is 
+                when normal => 
+                    IE_start_o <= ie_start;
+                    instr_decoded_o <= instr_decoded;
+                    PC_ID <= PC_IF;
+                    bypass1_o <= bypass1;
+                    bypass2_o <= bypass2;
+                    csr_addr_o <= csr_addr;
+                    if stall_i = '0' then
+                        rs1_addr_o <= rs1;
+                        rs2_addr_o <= rs2;
+                        rd_addr_o <= rd;
+                        immediate_o <= imm;
+                    else 
+                        rd_addr_o <= (others  => '0');
+                        rs1_addr_o <= (others  => '0');
+                        rs2_addr_o <= (others  => '0');
+                        immediate_o <= (others => '0');
+                    end if;
+                    if raise_exception = '1' then
+                        state <= trap_handling;
+                    else 
+                        state <= normal;
+                    end if;
+                when trap_handling => 
+                    trap_csr_handl <= '1';
+                    bypass1_o <= '0';
+                    bypass2_o <= '0';
+                    rd_addr_o <= (others  => '0');
+                    rs1_addr_o <= (others  => '0');
+                    rs2_addr_o <= (others  => '0');
+                    IE_start_o <= '0';
+                    immediate_o <= (others => '0');
+                    instr_decoded_o <= NOP;
+                    PC_ID <= (others => '0');
+                    csr_addr_o <= (others => '0');
+                    if raise_exception = '0' then
+                        state <= normal;
+                    else 
+                        state <= trap_handling;
+                    end if;
+                when others => 
+                    null;
+            end case;
         end if;
     end process;
 end RTL;
