@@ -2,13 +2,6 @@
 
 This repository contains the design of a simple RISC-V CPU core, written in VHDL, implementing a subset of the RV32I instruction set architecture.
 
-The CPU supports most of the RV32I Base Integer Instruction Set, with the following exceptions:
-
-- No support for Memory Ordering Instructions (e.g. FENCE)
-
-- No support for Environment Calls and Breakpoints (e.g. ECALL, EBREAK)
-
-
 
 This CPU is based on a 4-stage pipeline:
 
